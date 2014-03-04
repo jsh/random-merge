@@ -1,0 +1,15 @@
+PATH=$(dirname $(readlink -f $0)):$PATH
+
+perl -pe 's(/x)(/y)'
+
+PATH+=:
+
+find . -name '*.c' | xargs rm
+
+for i in *.foo; do echo mv $i $(basename $i .foo).bak; done | bash
+
+bash -eux
+
+fc
+
+die() { echo "$@" >&2; exit 1; }
